@@ -50,7 +50,7 @@ public class ShipController : MonoBehaviour
         _accelerationInput = Input.GetAxis(AXIS_ACCELERATE);
         _strafeInput = Input.GetAxis(AXIS_STRAFE);
 
-        var rot = transform.localRotation;
+        var rot = Quaternion.identity;
         rot *= Quaternion.Euler(Vector3.forward * _strafeInput * -_tilt);
         _graphics.localRotation = rot;
     }
