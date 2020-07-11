@@ -395,24 +395,12 @@ PrefabInstance:
       value: Ship
       objectReference: {fileID: 0}
     - target: {fileID: 6784669459182707057, guid: 7be64adc2c568404fa5e6d801154039b, type: 3}
-      propertyPath: _horizontalDamping
-      value: 0.95
-      objectReference: {fileID: 0}
-    - target: {fileID: 6784669459182707057, guid: 7be64adc2c568404fa5e6d801154039b, type: 3}
       propertyPath: _maxHorizontalDamping
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7028236006430593435, guid: 7be64adc2c568404fa5e6d801154039b, type: 3}
       propertyPath: m_IsActive
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7974621348795194090, guid: 7be64adc2c568404fa5e6d801154039b, type: 3}
-      propertyPath: m_UseGravity
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7974621348795194090, guid: 7be64adc2c568404fa5e6d801154039b, type: 3}
-      propertyPath: m_Constraints
-      value: 112
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7be64adc2c568404fa5e6d801154039b, type: 3}

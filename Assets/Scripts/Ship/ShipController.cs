@@ -7,7 +7,8 @@ public class ShipController : MonoBehaviour
 {
     private const string AXIS_ACCELERATE = "Vertical";
     private const string AXIS_RUDDER = "Horizontal";
-    private const string AXIS_AIRBRAKE = "Rotation";
+    private const string AXIS_AIRBRAKE_L = "Airbrake L";
+    private const string AXIS_AIRBRAKE_R = "Airbrake R";
     private const string LAYER_MAGNETIC = "Magnetic";
 
     [SerializeField] private Transform _graphics;
@@ -16,7 +17,11 @@ public class ShipController : MonoBehaviour
     [Header("Control")]
     [Range(10_000, 100_000)]
     [SerializeField] private float _acceleration;
+    [Range(0, 0.01f)]
     [SerializeField] private float _turn;
+
+    [Header("Air brakes")]
+    [SerializeField] private float _airbrakingForce;
     [SerializeField] private float _airbrakeTurn;
 
     [Header("Hover")]
@@ -35,7 +40,14 @@ public class ShipController : MonoBehaviour
 
     private float _accelerationInput;
     private float _rudderInput;
-    private float _airbrakeInput;
+    private Airbrake _airbrakeInput;
+    private struct Airbrake
+    {
+        public bool Left => Input.GetButton(AXIS_AIRBRAKE_L);
+        public bool Right => Input.GetButton(AXIS_AIRBRAKE_R);
+        public bool Either => Left || Right;
+        public bool Both => Left && Right;
+    }
 
     private float _currentRotation;
     private int _magnetLayer;
@@ -56,7 +68,6 @@ public class ShipController : MonoBehaviour
     {
         _accelerationInput = Input.GetAxis(AXIS_ACCELERATE);
         _rudderInput = Input.GetAxis(AXIS_RUDDER);
-        _airbrakeInput = Input.GetAxis(AXIS_AIRBRAKE);
     }
 
     private void FixedUpdate()
@@ -87,9 +98,46 @@ public class ShipController : MonoBehaviour
         // TODO: torque to rotate ship, based on airbrakes. make them more effective at speed!
         //_currentRotation += _airbrakeInput * _rotation * Time.fixedDeltaTime;
 
-        bool sameDir = Mathf.Sign(_rudderInput) == Mathf.Sign(_airbrakeInput);
-        bool bothEngaged = Mathf.Abs(_rudderInput) > 0.1f && Mathf.Abs(_airbrakeInput) > 0.1f;
-        float turn = (sameDir && bothEngaged) ? _airbrakeTurn : _turn;
+        //bool sameDir = Mathf.Sign(_rudderInput) == Mathf.Sign(_airbrakeInput);
+        //bool bothEngaged = Mathf.Abs(_rudderInput) > 0.1f && Mathf.Abs(_airbrakeInput) > 0.1f;
+        //float turn = (sameDir && bothEngaged) ? _airbrakeTurn : _turn;
+
+        //_currentRotation += _rudderInput * turn * Time.fixedDeltaTime;
+
+        Turn();
+        Brake();
+    }
+
+    private void Brake()
+    {
+        float force = 0;
+        if (_airbrakeInput.Both)
+        {
+            force = _airbrakingForce * 4;
+        }
+        else if (_airbrakeInput.Either)
+        {
+            force = _airbrakingForce;
+        }
+
+        _rb.velocity *= 1 - force;
+    }
+
+    private void Turn()
+    {
+        float turn =  _turn;
+        if (Mathf.Abs(_rudderInput) > 0.1f)
+        {
+            bool abLeft = _rudderInput < 0 && _airbrakeInput.Left;
+            bool abRight = _rudderInput > 0 && _airbrakeInput.Right;
+            if (abLeft || abRight)
+            {
+                turn = _airbrakeTurn;
+                // apply a braking force - these are airbrakes after all!
+            }
+        }
+
+        Debug.Log($"l: {_airbrakeInput.Left} r: {_airbrakeInput.Right}");
 
         _currentRotation += _rudderInput * turn * Time.fixedDeltaTime;
     }
