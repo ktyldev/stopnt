@@ -7,16 +7,18 @@ public class ShipController : MonoBehaviour
 {
     private const string AXIS_ACCELERATE = "Vertical";
     private const string AXIS_STRAFE = "Horizontal";
+    private const string AXIS_ROTATION = "Rotation";
+
+    [SerializeField] private Transform _com;
+    [SerializeField] private Transform _graphics;
+    [SerializeField] private float _tilt;
 
     [Header("Control")]
     [Range(10_000, 100_000)]
     [SerializeField] private float _acceleration;
     [Range(10_000, 100_000)]
     [SerializeField] private float _strafe;
-
-    [SerializeField] private Transform _com;
-    [SerializeField] private Transform _graphics;
-    [SerializeField] private float _tilt;
+    [SerializeField] private float _rotation;
 
     [Header("Hover")]
     [SerializeField] private ConfigurableJoint _repulsor;
@@ -26,6 +28,7 @@ public class ShipController : MonoBehaviour
     private Rigidbody _rb;
     private float _accelerationInput;
     private float _strafeInput;
+    private float _rotationInput;
 
     private void Awake()
     {
@@ -49,6 +52,7 @@ public class ShipController : MonoBehaviour
     {
         _accelerationInput = Input.GetAxis(AXIS_ACCELERATE);
         _strafeInput = Input.GetAxis(AXIS_STRAFE);
+        _rotationInput = Input.GetAxis(AXIS_ROTATION);
 
         var rot = Quaternion.identity;
         rot *= Quaternion.Euler(Vector3.forward * _strafeInput * -_tilt);
@@ -57,6 +61,8 @@ public class ShipController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        transform.Rotate(Vector3.up * _rotationInput * _rotation * Time.fixedDeltaTime);
+
         _rb.AddForce(transform.forward * _accelerationInput * _acceleration, ForceMode.Force);
         _rb.AddForce(transform.right * _strafeInput * _strafe, ForceMode.Force);
     }
