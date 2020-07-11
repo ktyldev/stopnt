@@ -27,6 +27,8 @@ public class ShipController : MonoBehaviour
     [SerializeField] private float _attraction;
     [Range(0.9f, 1.0f)]
     [SerializeField] private float _horizontalDamping;
+    [Range(0.001f, 0.1f)]
+    [SerializeField] private float _alignmentSmoothing;
 
     private Rigidbody _rb;
 
@@ -92,10 +94,18 @@ public class ShipController : MonoBehaviour
         _rb.velocity = transform.TransformDirection(localVelocity);
     }
 
+    private Quaternion _oldRotation;
+    private Quaternion _targetRotation;
     private void AlignToTrack()
     {
+        // align to track
+        _oldRotation = transform.rotation;
         transform.rotation = Quaternion.identity;
         transform.up = TrackNormal;
+        _targetRotation = transform.rotation;
+        transform.rotation = Quaternion.Slerp(_oldRotation, _targetRotation, _alignmentSmoothing);
+
+        // rotate around local up
         transform.Rotate(Vector3.up * _currentRotation, Space.Self);
 
         _graphics.localRotation = Quaternion.identity;
