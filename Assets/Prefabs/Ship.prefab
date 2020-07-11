@@ -67,12 +67,15 @@ MonoBehaviour:
   _graphics: {fileID: 3791464424703539868}
   _tilt: 20
   _acceleration: 62031
-  _strafe: 58635
-  _rotation: 90
+  _turn: 50
+  _airbrakeTurn: 100
   _repulsor: {fileID: 3831074029591071118}
-  _hoverHeight: 2
-  _repulsion: 10000
-  _attraction: 0
+  _hoverHeight: 1.5
+  _repulsion: 100000
+  _attraction: 100000
+  _alignmentSmoothing: 0.0528
+  _maxHorizontalDamping: 0
+  _dampingSensitivity: 10
 --- !u!65 &1007352636685487847
 BoxCollider:
   m_ObjectHideFlags: 0
