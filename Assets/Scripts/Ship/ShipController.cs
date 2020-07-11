@@ -38,6 +38,16 @@ public class ShipController : MonoBehaviour
 
     private Rigidbody _rb;
 
+    public float Velocity
+    {
+        get
+        {
+            Vector3 velocity = _rb.velocity;
+            velocity.y = 0; // don't count falling towards our velocity.
+            return velocity.magnitude;
+        }
+    }
+
     private float _accelerationInput;
     private float _rudderInput;
     private Airbrake _airbrakeInput;

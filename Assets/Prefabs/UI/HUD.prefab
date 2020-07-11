@@ -812,9 +812,9 @@ MonoBehaviour:
   - {fileID: 2672748181903997554}
   - {fileID: 7610684337107378725}
   - {fileID: 31768376}
-  m_CurrentSpeed: 107
-  m_TopSpeed: 733
-  m_SpeedInterpolant: 0.023
+  m_Ship: {fileID: 0}
+  m_TopSpeed: 720
+  m_UnitConversionRatio: 2.25
   m_ShakeCurve:
     serializedVersion: 2
     m_Curve:
@@ -839,6 +839,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  m_SpeedInterpolant: 0.023
 --- !u!114 &2672748183811482289
 MonoBehaviour:
   m_ObjectHideFlags: 0
