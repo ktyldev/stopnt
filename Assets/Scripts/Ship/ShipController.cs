@@ -20,8 +20,8 @@ public class ShipController : MonoBehaviour
     [SerializeField] private float _acceleration;
     [Range(0, 0.01f)]
     [SerializeField] private float _brake;
-    [Range(0, 0.01f)]
     [SerializeField] private float _turn;
+    [SerializeField] private bool _throttleLocked;
 
     [Header("Air brakes")]
     [SerializeField] private float _airbrakingForce;
@@ -102,7 +102,8 @@ public class ShipController : MonoBehaviour
         Drag();
 
         // apply control
-        _rb.AddForce(transform.forward * _accelerationInput * _acceleration, ForceMode.Acceleration);
+        float input = _throttleLocked ? 1 : _accelerationInput;
+        _rb.AddForce(transform.forward * input * _acceleration, ForceMode.Acceleration);
 
         Turn();
         Brake();

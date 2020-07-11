@@ -398,24 +398,8 @@ PrefabInstance:
       propertyPath: _maxHorizontalDamping
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 6784669459182707057, guid: 7be64adc2c568404fa5e6d801154039b, type: 3}
-      propertyPath: _acceleration
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 6784669459182707057, guid: 7be64adc2c568404fa5e6d801154039b, type: 3}
-      propertyPath: _brake
-      value: 0.0075
-      objectReference: {fileID: 0}
     - target: {fileID: 7028236006430593435, guid: 7be64adc2c568404fa5e6d801154039b, type: 3}
       propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7974621348795194090, guid: 7be64adc2c568404fa5e6d801154039b, type: 3}
-      propertyPath: m_Mass
-      value: 150
-      objectReference: {fileID: 0}
-    - target: {fileID: 7974621348795194090, guid: 7be64adc2c568404fa5e6d801154039b, type: 3}
-      propertyPath: m_Drag
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
