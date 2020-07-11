@@ -25,6 +25,8 @@ public class ShipController : MonoBehaviour
     [SerializeField] private float _hoverHeight;
     [SerializeField] private float _repulsion;
     [SerializeField] private float _attraction;
+    [Range(0.9f, 1.0f)]
+    [SerializeField] private float _horizontalDamping;
 
     private Rigidbody _rb;
 
@@ -32,6 +34,7 @@ public class ShipController : MonoBehaviour
     private float _strafeInput;
     private float _rotationInput;
 
+    private float _currentRotation;
     private int _magnetLayer;
 
     private Vector3 TrackNormal => TrackHit.normal;
@@ -51,10 +54,6 @@ public class ShipController : MonoBehaviour
         _accelerationInput = Input.GetAxis(AXIS_ACCELERATE);
         _strafeInput = Input.GetAxis(AXIS_STRAFE);
         _rotationInput = Input.GetAxis(AXIS_ROTATION);
-
-        //var rot = Quaternion.identity;
-        //rot *= Quaternion.Euler(Vector3.forward * _strafeInput * -_tilt);
-        //_graphics.localRotation = rot;
     }
 
     private void FixedUpdate()
@@ -76,18 +75,32 @@ public class ShipController : MonoBehaviour
         pos.y = targetHeight;
         transform.position = pos;
 
-        // to align to track
-        var fwd = transform.forward;
-        var alignRot = Quaternion.FromToRotation(Vector3.down, magneticForceDir);
-        fwd = alignRot * fwd;
-
-        _graphics.LookAt(transform.position + fwd);
+        AlignToTrack();
+        DampHorizontalMovement();
 
         // apply control
         // TODO: torque to rotate ship, based on airbrakes. make them more effective at speed!
-        transform.Rotate(transform.up * _rotationInput * _rotation * Time.fixedDeltaTime);
+        _currentRotation += _rotationInput * _rotation * Time.fixedDeltaTime;
         _rb.AddForce(transform.forward * _accelerationInput * _acceleration, ForceMode.Force);
         _rb.AddForce(transform.right * _strafeInput * _strafe, ForceMode.Force);
+    }
+
+    private void DampHorizontalMovement()
+    {
+        var localVelocity = transform.InverseTransformDirection(_rb.velocity);
+        localVelocity.x *= _horizontalDamping;
+        _rb.velocity = transform.TransformDirection(localVelocity);
+    }
+
+    private void AlignToTrack()
+    {
+        transform.rotation = Quaternion.identity;
+        transform.up = TrackNormal;
+        transform.Rotate(Vector3.up * _currentRotation, Space.Self);
+
+        _graphics.localRotation = Quaternion.identity;
+        float tilt = _strafeInput * -_tilt;
+        _graphics.Rotate(Vector3.forward * tilt);
     }
 
     private float MagneticForce(float distance)
