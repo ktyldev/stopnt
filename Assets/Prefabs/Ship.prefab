@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 961314757235553427}
   - component: {fileID: 7974621348795194090}
   - component: {fileID: 6784669459182707057}
+  - component: {fileID: 1007352636685487847}
   m_Layer: 0
   m_Name: Ship
   m_TagString: Untagged
@@ -71,6 +72,19 @@ MonoBehaviour:
   _hoverHeight: 1.5
   _repulsion: 10000
   _attraction: 0
+--- !u!65 &1007352636685487847
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1551612378400652752}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.6, y: 1, z: 7.25}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7028236006430593435
 GameObject:
   m_ObjectHideFlags: 0
