@@ -35,7 +35,5 @@ public class PerspectiveSkewedMenuItem : MonoBehaviour
         m_CurrentOffset = Vector2.Lerp( m_CurrentOffset, m_TargetOffset, k_PositionLerp );
 
         m_Transform.anchoredPosition = m_BasePosition + ((m_CurrentOffset + ScreenWalkingManager.WalkPosition) * m_SkewAmount);
-
-        Debug.Log( cursorViewportPosition );
     }
 }
