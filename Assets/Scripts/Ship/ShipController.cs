@@ -6,8 +6,8 @@ using UnityEngine;
 public class ShipController : MonoBehaviour
 {
     private const string AXIS_ACCELERATE = "Vertical";
-    private const string AXIS_STRAFE = "Horizontal";
-    private const string AXIS_ROTATION = "Rotation";
+    private const string AXIS_RUDDER = "Horizontal";
+    private const string AXIS_AIRBRAKE = "Rotation";
     private const string LAYER_MAGNETIC = "Magnetic";
 
     [SerializeField] private Transform _graphics;
@@ -16,22 +16,28 @@ public class ShipController : MonoBehaviour
     [Header("Control")]
     [Range(10_000, 100_000)]
     [SerializeField] private float _acceleration;
-    [Range(10_000, 100_000)]
-    [SerializeField] private float _strafe;
-    [SerializeField] private float _rotation;
+    [SerializeField] private float _turn;
+    [SerializeField] private float _airbrakeTurn;
 
     [Header("Hover")]
     [SerializeField] private Transform _repulsor;
     [SerializeField] private float _hoverHeight;
     [SerializeField] private float _repulsion;
     [SerializeField] private float _attraction;
+    [Range(0.001f, 0.1f)]
+    [SerializeField] private float _alignmentSmoothing;
+
+    [Header("Damping")]
+    [Range(0, 1)]
+    [SerializeField] private float _horizontalDamping;
 
     private Rigidbody _rb;
 
     private float _accelerationInput;
-    private float _strafeInput;
-    private float _rotationInput;
+    private float _rudderInput;
+    private float _airbrakeInput;
 
+    private float _currentRotation;
     private int _magnetLayer;
 
     private Vector3 TrackNormal => TrackHit.normal;
@@ -49,12 +55,8 @@ public class ShipController : MonoBehaviour
     private void Update()
     {
         _accelerationInput = Input.GetAxis(AXIS_ACCELERATE);
-        _strafeInput = Input.GetAxis(AXIS_STRAFE);
-        _rotationInput = Input.GetAxis(AXIS_ROTATION);
-
-        //var rot = Quaternion.identity;
-        //rot *= Quaternion.Euler(Vector3.forward * _strafeInput * -_tilt);
-        //_graphics.localRotation = rot;
+        _rudderInput = Input.GetAxis(AXIS_RUDDER);
+        _airbrakeInput = Input.GetAxis(AXIS_AIRBRAKE);
     }
 
     private void FixedUpdate()
@@ -76,18 +78,49 @@ public class ShipController : MonoBehaviour
         pos.y = targetHeight;
         transform.position = pos;
 
-        // to align to track
-        var fwd = transform.forward;
-        var alignRot = Quaternion.FromToRotation(Vector3.down, magneticForceDir);
-        fwd = alignRot * fwd;
-
-        _graphics.LookAt(transform.position + fwd);
+        AlignToTrack();
+        DampHorizontalMovement();
 
         // apply control
-        // TODO: torque to rotate ship, based on airbrakes. make them more effective at speed!
-        transform.Rotate(transform.up * _rotationInput * _rotation * Time.fixedDeltaTime);
         _rb.AddForce(transform.forward * _accelerationInput * _acceleration, ForceMode.Force);
-        _rb.AddForce(transform.right * _strafeInput * _strafe, ForceMode.Force);
+
+        // TODO: torque to rotate ship, based on airbrakes. make them more effective at speed!
+        //_currentRotation += _airbrakeInput * _rotation * Time.fixedDeltaTime;
+
+        bool sameDir = Mathf.Sign(_rudderInput) == Mathf.Sign(_airbrakeInput);
+        bool bothEngaged = Mathf.Abs(_rudderInput) > 0.1f && Mathf.Abs(_airbrakeInput) > 0.1f;
+        float turn = (sameDir && bothEngaged) ? _airbrakeTurn : _turn;
+
+        _currentRotation += _rudderInput * turn * Time.fixedDeltaTime;
+    }
+
+    private void DampHorizontalMovement()
+    {
+        var localVelocity = transform.InverseTransformDirection(_rb.velocity);
+
+        localVelocity.x *= 1 - _horizontalDamping;
+
+        _rb.velocity = transform.TransformDirection(localVelocity);
+    }
+
+    private Quaternion _oldRotation;
+    private Quaternion _targetRotation;
+    private void AlignToTrack()
+    {
+        // align to track
+        _oldRotation = transform.rotation;
+        transform.rotation = Quaternion.identity;
+        transform.up = TrackNormal;
+        // rotate around local up
+        transform.Rotate(_currentRotation * Vector3.up, Space.Self);
+        _targetRotation = transform.rotation;
+        transform.rotation = Quaternion.Slerp(_oldRotation, _targetRotation, _alignmentSmoothing);
+
+        //transform.Rotate(_rotationInput * Vector3.up * _rotation * Time.fixedDeltaTime, Space.Self);
+
+        _graphics.localRotation = Quaternion.identity;
+        float tilt = _rudderInput * -_tilt;
+        _graphics.Rotate(Vector3.forward * tilt);
     }
 
     private float MagneticForce(float distance)
