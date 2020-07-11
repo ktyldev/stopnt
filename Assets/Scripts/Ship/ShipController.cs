@@ -9,14 +9,17 @@ public class ShipController : MonoBehaviour
     private const string AXIS_RUDDER = "Horizontal";
     private const string AXIS_AIRBRAKE_L = "Airbrake L";
     private const string AXIS_AIRBRAKE_R = "Airbrake R";
+    private const string AXIS_BRAKE = "Brake";
     private const string LAYER_MAGNETIC = "Magnetic";
 
     [SerializeField] private Transform _graphics;
     [SerializeField] private float _tilt;
 
     [Header("Control")]
-    [Range(10_000, 100_000)]
+    [Range(100, 1000)]
     [SerializeField] private float _acceleration;
+    [Range(0, 0.01f)]
+    [SerializeField] private float _brake;
     [Range(0, 0.01f)]
     [SerializeField] private float _turn;
 
@@ -35,6 +38,8 @@ public class ShipController : MonoBehaviour
     [Header("Damping")]
     [Range(0, 1)]
     [SerializeField] private float _horizontalDamping;
+    [Range(0.001f, 0.01f)]
+    [SerializeField] private float _drag;
 
     private Rigidbody _rb;
 
@@ -67,6 +72,7 @@ public class ShipController : MonoBehaviour
     private void Update()
     {
         _accelerationInput = Input.GetAxis(AXIS_ACCELERATE);
+        _accelerationInput = Mathf.Clamp01(_accelerationInput);
         _rudderInput = Input.GetAxis(AXIS_RUDDER);
     }
 
@@ -90,22 +96,24 @@ public class ShipController : MonoBehaviour
         transform.position = pos;
 
         AlignToTrack();
+        Tilt();
+
         DampHorizontalMovement();
+        Drag();
 
         // apply control
-        _rb.AddForce(transform.forward * _accelerationInput * _acceleration, ForceMode.Force);
-
-        // TODO: torque to rotate ship, based on airbrakes. make them more effective at speed!
-        //_currentRotation += _airbrakeInput * _rotation * Time.fixedDeltaTime;
-
-        //bool sameDir = Mathf.Sign(_rudderInput) == Mathf.Sign(_airbrakeInput);
-        //bool bothEngaged = Mathf.Abs(_rudderInput) > 0.1f && Mathf.Abs(_airbrakeInput) > 0.1f;
-        //float turn = (sameDir && bothEngaged) ? _airbrakeTurn : _turn;
-
-        //_currentRotation += _rudderInput * turn * Time.fixedDeltaTime;
+        _rb.AddForce(transform.forward * _accelerationInput * _acceleration, ForceMode.Acceleration);
 
         Turn();
         Brake();
+    }
+
+    private void Drag()
+    {
+        if (_accelerationInput < 0.1f)
+        {
+            _rb.velocity *= (1 - _drag);
+        }
     }
 
     private void Brake()
@@ -120,6 +128,10 @@ public class ShipController : MonoBehaviour
             force = _airbrakingForce;
         }
 
+        Debug.Log(Input.GetAxis(AXIS_BRAKE));
+        var regularBrake = Input.GetAxis(AXIS_BRAKE) * _brake;
+        force = Mathf.Max(regularBrake, force);
+
         _rb.velocity *= 1 - force;
     }
 
@@ -133,7 +145,6 @@ public class ShipController : MonoBehaviour
             if (abLeft || abRight)
             {
                 turn = _airbrakeTurn;
-                // apply a braking force - these are airbrakes after all!
             }
         }
 
@@ -164,8 +175,10 @@ public class ShipController : MonoBehaviour
         _targetRotation = transform.rotation;
         transform.rotation = Quaternion.Slerp(_oldRotation, _targetRotation, _alignmentSmoothing);
 
-        //transform.Rotate(_rotationInput * Vector3.up * _rotation * Time.fixedDeltaTime, Space.Self);
+    }
 
+    private void Tilt()
+    {
         _graphics.localRotation = Quaternion.identity;
         float tilt = _rudderInput * -_tilt;
         _graphics.Rotate(Vector3.forward * tilt);

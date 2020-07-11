@@ -67,6 +67,7 @@ MonoBehaviour:
   _graphics: {fileID: 3791464424703539868}
   _tilt: 20
   _acceleration: 100000
+  _brake: 0.0075
   _turn: 50
   _airbrakingForce: 0.005
   _airbrakeTurn: 100
@@ -76,6 +77,7 @@ MonoBehaviour:
   _attraction: 100000
   _alignmentSmoothing: 0.0528
   _horizontalDamping: 0.95
+  _drag: 0.002
 --- !u!65 &1007352636685487847
 BoxCollider:
   m_ObjectHideFlags: 0
