@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using TMPro;
+using NaughtyAttributes;
 
 public class SpeedometerUI : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class SpeedometerUI : MonoBehaviour
     [SerializeField] [Range( 0, 1000 )] private float m_CurrentSpeed;
     [SerializeField] [Range( 0, 1000 )] private float m_TopSpeed;
     [SerializeField] [Range( 0, 1 )] private float m_SpeedInterpolant;
+
+    [CurveRange(0,0,1,1)]
     [SerializeField] AnimationCurve m_ShakeCurve;
     private float m_DisplayedSpeed;
 
