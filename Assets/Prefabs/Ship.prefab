@@ -178,6 +178,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 8adc26cb0b3958f4cbc03d283e4d11bd, type: 3}
   - {fileID: 8300000, guid: e23f16d8f01530543b022f678634eae8, type: 3}
   - {fileID: 8300000, guid: e42ab1fa51026b84a81ac2d46ac3e9bf, type: 3}
+  _engineVolume: 0.3
   _maxSpeed: 500
   _unitConversionRatio: 1
   _smoothing: 0.1
@@ -187,6 +188,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: d49309541ae2c344294649be036e2f3d, type: 3}
   - {fileID: 8300000, guid: 297e80246dd89dc48ab2132f598fc99b, type: 3}
   _collisionSource: {fileID: 7766472132294440252}
+  _collisionVolume: 0.5
 --- !u!82 &7766472132294440252
 AudioSource:
   m_ObjectHideFlags: 0
