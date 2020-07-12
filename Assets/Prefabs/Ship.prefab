@@ -472,7 +472,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 8adc26cb0b3958f4cbc03d283e4d11bd, type: 3}
   - {fileID: 8300000, guid: e23f16d8f01530543b022f678634eae8, type: 3}
   - {fileID: 8300000, guid: e42ab1fa51026b84a81ac2d46ac3e9bf, type: 3}
-  _engineVolume: 0.3
+  _engineVolume: 0.2
   _maxSpeed: 500
   _unitConversionRatio: 1
   _smoothing: 0.1
@@ -799,11 +799,11 @@ MonoBehaviour:
   _shipController: {fileID: 764525116303242149}
   _interpolation: {x: 20, y: 5, z: 30}
   _rotationInterpolation: 10
-  _topSpeed: 250
+  _topSpeed: 350
   _glow: 0
   _trim: {fileID: 2100000, guid: 76b13a6be51fc8c4090984130492844d, type: 2}
   _trimEmissionBase: {r: 1, g: 1, b: 1, a: 1}
-  _trimEmissionMaxScale: 2
+  _trimEmissionMaxScale: 5
   _engineSpike: {fileID: 2100000, guid: f6ac00d441e6f8a45a27053bcf85c627, type: 2}
   _trail: {fileID: 2100000, guid: fd2d7f797ff829145ba51fc7ffff9a59, type: 2}
   _engineSpikeBaseColour: {r: 0.23529413, g: 0.227451, b: 0.19215688, a: 1}
@@ -860,7 +860,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _heatScale: 2
+  _heatScale: 10
 --- !u!1 &8099659077905714412
 GameObject:
   m_ObjectHideFlags: 0
