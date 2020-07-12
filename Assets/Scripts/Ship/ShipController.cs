@@ -186,7 +186,5 @@ public class ShipController : MonoBehaviour
         float targetTilt = Rudder * -_tilt;
         _currentTilt = Mathf.Lerp(_currentTilt, targetTilt, _tiltSmoothing);
         _graphics.Rotate(Vector3.forward * _currentTilt);
-
-        Debug.Log(_currentTilt);
     }
 }
