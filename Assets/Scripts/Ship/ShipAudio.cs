@@ -6,8 +6,11 @@ public class ShipAudio : MonoBehaviour
 {
     private const string LAYER_WALLS = "Walls";
 
+
     [SerializeField] private ShipController _ship;
     [SerializeField] private AudioClip[] _engineNoises;
+    [Range(0,1)]
+    [SerializeField] private float _engineVolume;
     [SerializeField] private float _maxSpeed;
     [SerializeField] private float _unitConversionRatio;
     [Range(0,1)]
@@ -15,6 +18,8 @@ public class ShipAudio : MonoBehaviour
 
     [SerializeField] private AudioClip[] _collisionNoises;
     [SerializeField] private AudioSource _collisionSource;
+    [Range(0,1)]
+    [SerializeField] private float _collisionVolume;
 
     private readonly List<EngineSample> _samples = new List<EngineSample>();
 
@@ -61,8 +66,6 @@ public class ShipAudio : MonoBehaviour
                 source = source,
                 speed = speed
             });
-
-            Debug.Log($"speed: {speed} source: {source}");
         }
         foreach (var sample in _samples)
         {
@@ -92,7 +95,7 @@ public class ShipAudio : MonoBehaviour
             return 0;
         }
 
-        return Mathf.InverseLerp(_step, 0, distance);
+        return Mathf.InverseLerp(_step, 0, distance) * _engineVolume;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -109,6 +112,7 @@ public class ShipAudio : MonoBehaviour
 
         int r = Random.Range(0, _collisionNoises.Length);
         _collisionSource.clip = _collisionNoises[r];
+        _collisionSource.volume = _collisionVolume;
         _collisionSource.Play();
         _collisionSource.time = 0.1f;
     }
