@@ -5,13 +5,49 @@ using UnityEngine;
 public class ShipGraphics : MonoBehaviour
 {
     [SerializeField] private Transform _ship;
+    [SerializeField] private ShipController _shipController;
 
     [SerializeField] private Vector3 _interpolation;
     [SerializeField] private float _rotationInterpolation;
+    [SerializeField] private float _topSpeed;
+
+    [Range(0, 1)]
+    [SerializeField] private float _glow;
+
+    [SerializeField] private Material _trim;
+    [SerializeField] private Color _trimEmissionBase;
+    [SerializeField] private float _trimEmissionMaxScale;
+
+    [SerializeField] private Material _engineSpike;
+    [SerializeField] private Color _engineSpikeBaseColour;
+    [SerializeField] private Gradient _heatGradient;
+    [SerializeField] private AnimationCurve _heatEmission;
+    [SerializeField] private float _heatScale;
 
     void Start()
     {
         transform.position = _ship.position;
+    }
+
+    private const string PROP_EMISSION = "_EmissionColor";
+    private const string PROP_BASE = "_BaseColor";
+
+    private void LateUpdate()
+    {
+        _glow = Mathf.InverseLerp(0, _topSpeed, _shipController.Velocity);
+        _glow = Mathf.Clamp01(_glow);
+
+        // trim emission
+        Color trim = _trimEmissionBase * _glow * _trimEmissionMaxScale;
+        _trim.SetColor(PROP_EMISSION, trim);
+
+        // engine glow
+        Color engineGlow = _heatGradient.Evaluate(_glow);
+        Color engineColour = Color.Lerp(_engineSpikeBaseColour, engineGlow, _glow);
+        _engineSpike.SetColor(PROP_BASE, engineColour);
+
+        Color engineEmission = engineGlow * _heatEmission.Evaluate(_glow) * _heatScale;
+        _engineSpike.SetColor(PROP_EMISSION, engineEmission);
     }
 
     void FixedUpdate()
