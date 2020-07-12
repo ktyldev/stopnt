@@ -52,6 +52,7 @@ public class ShipController : MonoBehaviour
 
     public float Rudder { get; private set; }
     public AirbrakeInput Airbrake { get; private set; }
+    public float Velocity => _rb.velocity.magnitude;
     public struct AirbrakeInput
     {
         public bool Left => Input.GetButton(AXIS_AIRBRAKE_L);
