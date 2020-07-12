@@ -6,6 +6,7 @@ using NaughtyAttributes;
 public class GameStateGameplay : GameStateBehaviour
 {
     [SerializeField] private ShipController m_Controller;
+    [SerializeField] private DisplacementMask m_HealthMask;
     [SerializeField] private TimerUI m_TimerUI;
     [SerializeField] private float m_ShipHealthMax;
     [ShowNonSerializedField] private float m_ShipHealth;
@@ -22,6 +23,7 @@ public class GameStateGameplay : GameStateBehaviour
     {
         float currentVelocity = m_Controller.Velocity;
         m_ShipHealth -= timeDelta;
+        m_HealthMask.SetValue( m_ShipHealth / m_ShipHealthMax );
         return m_ShipHealth <= 0f;
     }
 

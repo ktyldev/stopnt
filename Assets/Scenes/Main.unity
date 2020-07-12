@@ -387,6 +387,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49e353e9c0f72d744a5f5239feefda85, type: 3}
+--- !u!114 &603374064 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 228871878383421835, guid: 9c615b32324a35a40b0686e9b2a1ac10, type: 3}
+  m_PrefabInstance: {fileID: 1628812618}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00890532c969ded4e8d9a07d7f1c6cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &683369987 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2672748183032613064, guid: 5a7a4baf89657df4aa633adfde529a59, type: 3}
@@ -616,6 +627,10 @@ PrefabInstance:
       propertyPath: m_ShipHealthMax
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 1111067714, guid: 7be64adc2c568404fa5e6d801154039b, type: 3}
+      propertyPath: m_HealthMask
+      value: 
+      objectReference: {fileID: 603374064}
     - target: {fileID: 1111067715, guid: 7be64adc2c568404fa5e6d801154039b, type: 3}
       propertyPath: m_CountdownText
       value: 
