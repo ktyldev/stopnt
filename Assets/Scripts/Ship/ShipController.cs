@@ -34,6 +34,8 @@ public class ShipController : MonoBehaviour
     [SerializeField] private float _attraction;
     [Range(0.001f, 0.1f)]
     [SerializeField] private float _alignmentSmoothing;
+    [Range(0, 1)]
+    [SerializeField] private float _tiltSmoothing;
 
     [Header("Damping")]
     [Range(0, 1)]
@@ -44,18 +46,19 @@ public class ShipController : MonoBehaviour
     private Rigidbody _rb;
 
     private float _accelerationInput;
-    private float _rudderInput;
-    private Airbrake _airbrakeInput;
-    private struct Airbrake
+    private float _currentRotation;
+    private float _currentTilt;
+    private int _magnetLayer;
+
+    public float Rudder { get; private set; }
+    public AirbrakeInput Airbrake { get; private set; }
+    public struct AirbrakeInput
     {
         public bool Left => Input.GetButton(AXIS_AIRBRAKE_L);
         public bool Right => Input.GetButton(AXIS_AIRBRAKE_R);
         public bool Either => Left || Right;
         public bool Both => Left && Right;
     }
-
-    private float _currentRotation;
-    private int _magnetLayer;
 
     private Vector3 TrackNormal => TrackHit.normal;
     private Vector3 TrackPosition => TrackHit.point;
@@ -73,7 +76,7 @@ public class ShipController : MonoBehaviour
     {
         _accelerationInput = Input.GetAxis(AXIS_ACCELERATE);
         _accelerationInput = Mathf.Clamp01(_accelerationInput);
-        _rudderInput = Input.GetAxis(AXIS_RUDDER);
+        Rudder = Input.GetAxis(AXIS_RUDDER);
     }
 
     private void FixedUpdate()
@@ -120,16 +123,15 @@ public class ShipController : MonoBehaviour
     private void Brake()
     {
         float force = 0;
-        if (_airbrakeInput.Both)
+        if (Airbrake.Both)
         {
             force = _airbrakingForce * 4;
         }
-        else if (_airbrakeInput.Either)
+        else if (Airbrake.Either)
         {
             force = _airbrakingForce;
         }
 
-        Debug.Log(Input.GetAxis(AXIS_BRAKE));
         var regularBrake = Input.GetAxis(AXIS_BRAKE) * _brake;
         force = Mathf.Max(regularBrake, force);
 
@@ -139,19 +141,17 @@ public class ShipController : MonoBehaviour
     private void Turn()
     {
         float turn =  _turn;
-        if (Mathf.Abs(_rudderInput) > 0.1f)
+        if (Mathf.Abs(Rudder) > 0.1f)
         {
-            bool abLeft = _rudderInput < 0 && _airbrakeInput.Left;
-            bool abRight = _rudderInput > 0 && _airbrakeInput.Right;
+            bool abLeft = Rudder < 0 && Airbrake.Left;
+            bool abRight = Rudder > 0 && Airbrake.Right;
             if (abLeft || abRight)
             {
                 turn = _airbrakeTurn;
             }
         }
 
-        Debug.Log($"l: {_airbrakeInput.Left} r: {_airbrakeInput.Right}");
-
-        _currentRotation += _rudderInput * turn * Time.fixedDeltaTime;
+        _currentRotation += Rudder * turn * Time.fixedDeltaTime;
     }
 
     private void DampHorizontalMovement()
@@ -181,8 +181,9 @@ public class ShipController : MonoBehaviour
     private void Tilt()
     {
         _graphics.localRotation = Quaternion.identity;
-        float tilt = _rudderInput * -_tilt;
-        _graphics.Rotate(Vector3.forward * tilt);
+        float targetTilt = Rudder * -_tilt;
+        _currentTilt = Mathf.Lerp(_currentTilt, targetTilt, _tiltSmoothing);
+        _graphics.Rotate(Vector3.forward * _currentTilt);
     }
 
     private float MagneticForce(float distance)
