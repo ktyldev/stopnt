@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 0ffaa0b7117ba8c47a9d05ae701d4b4d, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -561,19 +561,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8788254570087038863, guid: bc7b7de6134eede49b0c5c4e37e3d2f4, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.008246535
+      value: -0.008246532
       objectReference: {fileID: 0}
     - target: {fileID: 8788254570087038863, guid: bc7b7de6134eede49b0c5c4e37e3d2f4, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.025443895
+      value: -0.025458777
       objectReference: {fileID: 0}
     - target: {fileID: 8788254570087038863, guid: bc7b7de6134eede49b0c5c4e37e3d2f4, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.00020989908
+      value: -0.00021002183
       objectReference: {fileID: 0}
     - target: {fileID: 8788254570087038863, guid: bc7b7de6134eede49b0c5c4e37e3d2f4, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.99964225
+      value: 0.99964184
+      objectReference: {fileID: 0}
+    - target: {fileID: 8788254570087038864, guid: bc7b7de6134eede49b0c5c4e37e3d2f4, type: 3}
+      propertyPath: m_RendererIndex
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8788254570964130642, guid: bc7b7de6134eede49b0c5c4e37e3d2f4, type: 3}
       propertyPath: m_Name
@@ -645,19 +649,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8788254571282935036, guid: bc7b7de6134eede49b0c5c4e37e3d2f4, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.008246535
+      value: -0.008246532
       objectReference: {fileID: 0}
     - target: {fileID: 8788254571282935036, guid: bc7b7de6134eede49b0c5c4e37e3d2f4, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.025443895
+      value: -0.025458777
       objectReference: {fileID: 0}
     - target: {fileID: 8788254571282935036, guid: bc7b7de6134eede49b0c5c4e37e3d2f4, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.00020989908
+      value: -0.00021002183
       objectReference: {fileID: 0}
     - target: {fileID: 8788254571282935036, guid: bc7b7de6134eede49b0c5c4e37e3d2f4, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.99964225
+      value: 0.99964184
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc7b7de6134eede49b0c5c4e37e3d2f4, type: 3}
@@ -765,6 +769,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 888532714080878392, guid: 9c615b32324a35a40b0686e9b2a1ac10, type: 3}
+      propertyPath: m_text
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 888532714080878392, guid: 9c615b32324a35a40b0686e9b2a1ac10, type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 888532714080878392, guid: 9c615b32324a35a40b0686e9b2a1ac10, type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 888532714080878392, guid: 9c615b32324a35a40b0686e9b2a1ac10, type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 888532714080878392, guid: 9c615b32324a35a40b0686e9b2a1ac10, type: 3}
+      propertyPath: m_textInfo.pageCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 888532714080878392, guid: 9c615b32324a35a40b0686e9b2a1ac10, type: 3}
+      propertyPath: m_margin.z
+      value: -112.47864
+      objectReference: {fileID: 0}
     - target: {fileID: 2672748183032613064, guid: 9c615b32324a35a40b0686e9b2a1ac10, type: 3}
       propertyPath: m_Name
       value: HUD

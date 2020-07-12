@@ -8,14 +8,13 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Building_Base
-  m_Shader: {fileID: 4800000, guid: 650dd9526735d5b46b79224bc6e94025, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 3b29b5153f3c4d54aa1683dadc0e5bba, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2050
-  stringTagMap:
-    RenderType: Opaque
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
@@ -72,9 +71,17 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
+    - FarColor: {r: 1, g: 0.5254902, b: 0.38431373, a: 0}
+    - FarEmissive: {r: 0, g: 0, b: 0, a: 0}
+    - NearColor: {r: 0.47850066, g: 0.35691822, b: 0.5, a: 0}
+    - NearEmissive: {r: 0, g: 0, b: 0, a: 0}
     - _BaseColor: {r: 0.21698111, g: 0.17857546, b: 0.19438955, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _DistanceColor: {r: 1, g: 0, b: 0.87129784, a: 0}
+    - _DistanceEmissive: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _NearColor: {r: 0, g: 1, b: 0.900543, a: 0}
+    - _NearEmissive: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &3752269680170261886
