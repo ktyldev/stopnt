@@ -84,19 +84,6 @@ public class ShipController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        var actualHeight = TrackHit.distance;
-        var groundPosition = TrackPosition;
-
-        var h = _hoverHeight;
-        //var h = Mathf.Lerp(actualHeight, _hoverHeight, _magnetSmoothing);
-        h = Mathf.Max(_minHeight, h);
-        var targetPosition = groundPosition + TrackNormal * h;
-        var targetHeight = targetPosition.y;
-
-        // set hover height
-        var pos = transform.position;
-        pos.y = Mathf.Lerp(pos.y, targetHeight, _magnetSmoothing);
-        transform.position = pos;
 
         AlignToTrack();
         Tilt();
