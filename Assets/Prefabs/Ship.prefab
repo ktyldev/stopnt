@@ -223,6 +223,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6105719356956213967}
   - component: {fileID: 6105719356956213966}
+  - component: {fileID: 1830741890185563074}
   m_Layer: 0
   m_Name: Ship Graphics
   m_TagString: Untagged
@@ -260,6 +261,34 @@ MonoBehaviour:
   _ship: {fileID: 6105719355784364249}
   _interpolation: {x: 20, y: 5, z: 30}
   _rotationInterpolation: 10
+--- !u!114 &1830741890185563074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6105719356956213964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae460a0938fd4194f9db4ee408b36912, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _ship: {fileID: 764525116303242149}
+  _engineNoises:
+  - {fileID: 8300000, guid: 35eedc4cda7c8de478a72e0da2e0baf3, type: 3}
+  - {fileID: 8300000, guid: 76f449add9726bc489cc2b96d48ac69c, type: 3}
+  - {fileID: 8300000, guid: dce4543a526de1f4893ffaabdcce3024, type: 3}
+  - {fileID: 8300000, guid: 8964dba2cd1189b4680e1edcdb0dabfe, type: 3}
+  - {fileID: 8300000, guid: 36f95a6df76613740bfda756521a6d67, type: 3}
+  - {fileID: 8300000, guid: 21887a92b7afd9e47b20efa84748d439, type: 3}
+  - {fileID: 8300000, guid: b2d4d9315ac8758498a5b927cba5e704, type: 3}
+  - {fileID: 8300000, guid: 937779e0689ef4842b4878ed9181247d, type: 3}
+  - {fileID: 8300000, guid: 8adc26cb0b3958f4cbc03d283e4d11bd, type: 3}
+  - {fileID: 8300000, guid: e23f16d8f01530543b022f678634eae8, type: 3}
+  - {fileID: 8300000, guid: e42ab1fa51026b84a81ac2d46ac3e9bf, type: 3}
+  _maxSpeed: 500
+  _unitConversionRatio: 1
+  _smoothing: 0.1
 --- !u!1001 &4619237756941294285
 PrefabInstance:
   m_ObjectHideFlags: 0
