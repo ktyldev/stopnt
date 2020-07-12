@@ -21,6 +21,7 @@ public class ShipController : MonoBehaviour
     [Range(0, 0.01f)]
     [SerializeField] private float _brake;
     [SerializeField] private float _turn;
+    [SerializeField] private float _strafe;
     [SerializeField] private bool _throttleLocked;
 
     [Header("Air brakes")]
@@ -30,8 +31,9 @@ public class ShipController : MonoBehaviour
     [Header("Hover")]
     [SerializeField] private Transform _repulsor;
     [SerializeField] private float _hoverHeight;
-    [SerializeField] private float _repulsion;
-    [SerializeField] private float _attraction;
+    [SerializeField] private float _minHeight;
+    [Range(0, 1)]
+    [SerializeField] private float _magnetSmoothing;
     [Range(0.001f, 0.1f)]
     [SerializeField] private float _alignmentSmoothing;
     [Range(0, 1)]
@@ -52,6 +54,7 @@ public class ShipController : MonoBehaviour
 
     public float Rudder { get; private set; }
     public AirbrakeInput Airbrake { get; private set; }
+    public float Velocity => _rb.velocity.magnitude;
     public struct AirbrakeInput
     {
         public bool Left => Input.GetButton(AXIS_AIRBRAKE_L);
@@ -62,7 +65,7 @@ public class ShipController : MonoBehaviour
 
     private Vector3 TrackNormal => TrackHit.normal;
     private Vector3 TrackPosition => TrackHit.point;
-    private RaycastHit TrackHit => Physics.Raycast(_repulsor.position, -_repulsor.up, out var hit, Mathf.Infinity, _magnetLayer) ? hit : default;
+    private RaycastHit TrackHit => Physics.Raycast(transform.position, -transform.up, out var hit, Mathf.Infinity, _magnetLayer) ? hit : default;
 
     private float Inertia => _rb.mass * _rb.velocity.magnitude;
 
@@ -81,21 +84,18 @@ public class ShipController : MonoBehaviour
 
     private void FixedUpdate()
     {
-
-        // apply magnetic forces
-        var magneticForceDir = -TrackNormal;
-        var magnetDirNormalised = magneticForceDir.normalized;
-        var distance = magneticForceDir.magnitude;
-
-        var magneticForce = -magnetDirNormalised * MagneticForce(distance);
-
+        var actualHeight = TrackHit.distance;
         var groundPosition = TrackPosition;
-        var targetPosition = groundPosition - magnetDirNormalised * _hoverHeight;
+
+        var h = _hoverHeight;
+        //var h = Mathf.Lerp(actualHeight, _hoverHeight, _magnetSmoothing);
+        h = Mathf.Max(_minHeight, h);
+        var targetPosition = groundPosition + TrackNormal * h;
         var targetHeight = targetPosition.y;
 
         // set hover height
         var pos = transform.position;
-        pos.y = targetHeight;
+        pos.y = Mathf.Lerp(pos.y, targetHeight, _magnetSmoothing);
         transform.position = pos;
 
         AlignToTrack();
@@ -150,6 +150,19 @@ public class ShipController : MonoBehaviour
                 turn = _airbrakeTurn;
             }
         }
+        else if (!Airbrake.Both)
+        {
+            // strafe
+            if (Airbrake.Left)
+            {
+                _rb.AddForce(-transform.right * _strafe, ForceMode.VelocityChange);
+            }
+
+            if (Airbrake.Right)
+            {
+                _rb.AddForce(transform.right * _strafe, ForceMode.VelocityChange);
+            }
+        }
 
         _currentRotation += Rudder * turn * Time.fixedDeltaTime;
     }
@@ -184,25 +197,5 @@ public class ShipController : MonoBehaviour
         float targetTilt = Rudder * -_tilt;
         _currentTilt = Mathf.Lerp(_currentTilt, targetTilt, _tiltSmoothing);
         _graphics.Rotate(Vector3.forward * _currentTilt);
-    }
-
-    private float MagneticForce(float distance)
-    {
-        float x;
-
-        if (distance > _hoverHeight)
-        {
-            x = distance;
-            x = x * x * x;
-            x *= -_attraction;
-        }
-        else
-        {
-            x = _hoverHeight - distance;
-            x = x * x * x;
-            x *= _repulsion;
-        }
-
-        return x;
     }
 }
