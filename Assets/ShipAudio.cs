@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ShipAudio : MonoBehaviour
 {
+    private const string LAYER_WALLS = "Walls";
+
     [SerializeField] private ShipController _ship;
     [SerializeField] private AudioClip[] _engineNoises;
     [SerializeField] private float _maxSpeed;
@@ -11,10 +13,14 @@ public class ShipAudio : MonoBehaviour
     [Range(0,1)]
     [SerializeField] private float _smoothing;
 
+    [SerializeField] private AudioClip[] _collisionNoises;
+    [SerializeField] private AudioSource _collisionSource;
+
     private readonly List<EngineSample> _samples = new List<EngineSample>();
 
     private float _step;
     private float _smoothedVelocity;
+    private int _wallLayer;
 
     private class EngineSample
     {
@@ -26,6 +32,8 @@ public class ShipAudio : MonoBehaviour
     {
         var maxSpeed = _maxSpeed * _unitConversionRatio;
         _step = maxSpeed / _engineNoises.Length;
+
+        _wallLayer = LayerMask.NameToLayer(LAYER_WALLS);
     }
 
     void Start()
@@ -33,6 +41,7 @@ public class ShipAudio : MonoBehaviour
         var empty = new GameObject();
         empty.AddComponent<AudioSource>();
 
+        // engine noises
         for (int i = 0; i < _engineNoises.Length; i++)
         {
             var clip = _engineNoises[i];
@@ -55,13 +64,13 @@ public class ShipAudio : MonoBehaviour
 
             Debug.Log($"speed: {speed} source: {source}");
         }
-
-        Destroy(empty);
-
         foreach (var sample in _samples)
         {
             sample.source.Play();
         }
+
+        Destroy(empty);
+
     }
 
     void Update()
@@ -84,5 +93,23 @@ public class ShipAudio : MonoBehaviour
         }
 
         return Mathf.InverseLerp(_step, 0, distance);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.layer != _wallLayer)
+        {
+            return;
+        }
+
+        if (_collisionSource.isPlaying)
+        {
+            _collisionSource.Stop();
+        }
+
+        int r = Random.Range(0, _collisionNoises.Length);
+        _collisionSource.clip = _collisionNoises[r];
+        _collisionSource.Play();
+        _collisionSource.time = 0.1f;
     }
 }

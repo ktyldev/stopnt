@@ -139,7 +139,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5674365812241624437}
   - component: {fileID: 5674365812241624442}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: TrackWalls
   m_TagString: Untagged
   m_Icon: {fileID: 0}

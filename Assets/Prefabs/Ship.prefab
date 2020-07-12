@@ -44,6 +44,8 @@ GameObject:
   - component: {fileID: 6431433309395983411}
   - component: {fileID: 3786650238065949272}
   - component: {fileID: 4698292741194641159}
+  - component: {fileID: 4180619710847416979}
+  - component: {fileID: 7766472132294440252}
   m_Layer: 0
   m_Name: Ship Physics
   m_TagString: Untagged
@@ -151,6 +153,136 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 2.5
   m_Center: {x: 0, y: 1.01, z: 0}
+--- !u!114 &4180619710847416979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4698292741194641156}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae460a0938fd4194f9db4ee408b36912, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _ship: {fileID: 764525116303242149}
+  _engineNoises:
+  - {fileID: 8300000, guid: 35eedc4cda7c8de478a72e0da2e0baf3, type: 3}
+  - {fileID: 8300000, guid: 76f449add9726bc489cc2b96d48ac69c, type: 3}
+  - {fileID: 8300000, guid: dce4543a526de1f4893ffaabdcce3024, type: 3}
+  - {fileID: 8300000, guid: 8964dba2cd1189b4680e1edcdb0dabfe, type: 3}
+  - {fileID: 8300000, guid: 36f95a6df76613740bfda756521a6d67, type: 3}
+  - {fileID: 8300000, guid: 21887a92b7afd9e47b20efa84748d439, type: 3}
+  - {fileID: 8300000, guid: b2d4d9315ac8758498a5b927cba5e704, type: 3}
+  - {fileID: 8300000, guid: 937779e0689ef4842b4878ed9181247d, type: 3}
+  - {fileID: 8300000, guid: 8adc26cb0b3958f4cbc03d283e4d11bd, type: 3}
+  - {fileID: 8300000, guid: e23f16d8f01530543b022f678634eae8, type: 3}
+  - {fileID: 8300000, guid: e42ab1fa51026b84a81ac2d46ac3e9bf, type: 3}
+  _maxSpeed: 500
+  _unitConversionRatio: 1
+  _smoothing: 0.1
+  _collisionNoises:
+  - {fileID: 8300000, guid: e2761da5119268d47a263bfa20beff5f, type: 3}
+  - {fileID: 8300000, guid: a1ab210d91e48b34daaeb26cade07ba2, type: 3}
+  - {fileID: 8300000, guid: d49309541ae2c344294649be036e2f3d, type: 3}
+  - {fileID: 8300000, guid: 297e80246dd89dc48ab2132f598fc99b, type: 3}
+  _collisionSource: {fileID: 7766472132294440252}
+--- !u!82 &7766472132294440252
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4698292741194641156}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &6105719355784364230
 GameObject:
   m_ObjectHideFlags: 0
@@ -223,7 +355,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6105719356956213967}
   - component: {fileID: 6105719356956213966}
-  - component: {fileID: 1830741890185563074}
   m_Layer: 0
   m_Name: Ship Graphics
   m_TagString: Untagged
@@ -261,34 +392,6 @@ MonoBehaviour:
   _ship: {fileID: 6105719355784364249}
   _interpolation: {x: 20, y: 5, z: 30}
   _rotationInterpolation: 10
---- !u!114 &1830741890185563074
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6105719356956213964}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae460a0938fd4194f9db4ee408b36912, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _ship: {fileID: 764525116303242149}
-  _engineNoises:
-  - {fileID: 8300000, guid: 35eedc4cda7c8de478a72e0da2e0baf3, type: 3}
-  - {fileID: 8300000, guid: 76f449add9726bc489cc2b96d48ac69c, type: 3}
-  - {fileID: 8300000, guid: dce4543a526de1f4893ffaabdcce3024, type: 3}
-  - {fileID: 8300000, guid: 8964dba2cd1189b4680e1edcdb0dabfe, type: 3}
-  - {fileID: 8300000, guid: 36f95a6df76613740bfda756521a6d67, type: 3}
-  - {fileID: 8300000, guid: 21887a92b7afd9e47b20efa84748d439, type: 3}
-  - {fileID: 8300000, guid: b2d4d9315ac8758498a5b927cba5e704, type: 3}
-  - {fileID: 8300000, guid: 937779e0689ef4842b4878ed9181247d, type: 3}
-  - {fileID: 8300000, guid: 8adc26cb0b3958f4cbc03d283e4d11bd, type: 3}
-  - {fileID: 8300000, guid: e23f16d8f01530543b022f678634eae8, type: 3}
-  - {fileID: 8300000, guid: e42ab1fa51026b84a81ac2d46ac3e9bf, type: 3}
-  _maxSpeed: 500
-  _unitConversionRatio: 1
-  _smoothing: 0.1
 --- !u!1001 &4619237756941294285
 PrefabInstance:
   m_ObjectHideFlags: 0
