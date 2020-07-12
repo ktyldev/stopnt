@@ -19,6 +19,7 @@ public class ShipGraphics : MonoBehaviour
     [SerializeField] private float _trimEmissionMaxScale;
 
     [SerializeField] private Material _engineSpike;
+    [SerializeField] private Material _trail;
     [SerializeField] private Color _engineSpikeBaseColour;
     [SerializeField] private Gradient _heatGradient;
     [SerializeField] private AnimationCurve _heatEmission;
@@ -45,9 +46,11 @@ public class ShipGraphics : MonoBehaviour
         Color engineGlow = _heatGradient.Evaluate(_glow);
         Color engineColour = Color.Lerp(_engineSpikeBaseColour, engineGlow, _glow);
         _engineSpike.SetColor(PROP_BASE, engineColour);
+        _trail.SetColor(PROP_BASE, engineGlow);
 
         Color engineEmission = engineGlow * _heatEmission.Evaluate(_glow) * _heatScale;
         _engineSpike.SetColor(PROP_EMISSION, engineEmission);
+        _trail.SetColor(PROP_EMISSION, engineGlow);
     }
 
     void FixedUpdate()
