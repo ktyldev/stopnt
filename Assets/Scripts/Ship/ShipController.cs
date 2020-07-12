@@ -21,6 +21,7 @@ public class ShipController : MonoBehaviour
     [Range(0, 0.01f)]
     [SerializeField] private float _brake;
     [SerializeField] private float _turn;
+    [SerializeField] private float _strafe;
     [SerializeField] private bool _throttleLocked;
 
     [Header("Air brakes")]
@@ -147,6 +148,19 @@ public class ShipController : MonoBehaviour
             if (abLeft || abRight)
             {
                 turn = _airbrakeTurn;
+            }
+        }
+        else if (!Airbrake.Both)
+        {
+            // strafe
+            if (Airbrake.Left)
+            {
+                _rb.AddForce(-transform.right * _strafe, ForceMode.VelocityChange);
+            }
+
+            if (Airbrake.Right)
+            {
+                _rb.AddForce(transform.right * _strafe, ForceMode.VelocityChange);
             }
         }
 
