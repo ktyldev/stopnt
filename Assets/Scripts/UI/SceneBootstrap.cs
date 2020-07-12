@@ -113,7 +113,7 @@ public class SceneBootstrap : MonoBehaviour
 
             case LoadState.FadeIn:
             case LoadState.FadeOut:
-                m_FadeTimer += Time.deltaTime / m_FadeDuration;
+                m_FadeTimer += Time.unscaledDeltaTime / m_FadeDuration;
                 m_FadeTimer = Mathf.Clamp01( m_FadeTimer );
 
                 if (m_FadeTimer >= 1f)
