@@ -706,7 +706,7 @@ MonoBehaviour:
   m_HealthMask: {fileID: 0}
   m_TimerUI: {fileID: 0}
   m_Speedo: {fileID: 0}
-  m_ShipHealthMax: 12.5
+  m_ShipHealthMax: 6.5
   m_InitialImmunity: 3
   m_DifficultyCurve:
     serializedVersion: 2
