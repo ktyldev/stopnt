@@ -11,6 +11,8 @@ public class TimerUI : MonoBehaviour
 
     private const string timeFormat = "{0:00}:{1:00}.{2:000}";
 
+    public float Value => m_Value;
+
     void LateUpdate()
     {
         if (m_Active)

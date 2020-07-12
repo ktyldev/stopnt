@@ -52,6 +52,8 @@ public class ShipController : MonoBehaviour
     private float _currentTilt;
     private int _magnetLayer;
 
+    public float ForceModifier { get; set; }
+
     public float Rudder { get; private set; }
     public AirbrakeInput Airbrake { get; private set; }
     public float Velocity => _rb.velocity.magnitude;
@@ -93,7 +95,7 @@ public class ShipController : MonoBehaviour
 
         // apply control
         float input = _throttleLocked ? 1 : _accelerationInput;
-        _rb.AddForce(transform.forward * input * _acceleration, ForceMode.Acceleration);
+        _rb.AddForce(transform.forward * input * _acceleration * ForceModifier, ForceMode.Acceleration);
 
         Turn();
         Brake();
