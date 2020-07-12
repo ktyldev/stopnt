@@ -97,7 +97,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _graphics: {fileID: 6105719355784364249}
   _tilt: 20
-  _acceleration: 100
+  _acceleration: 175
   _brake: 0.0075
   _turn: 75
   _strafe: 10
@@ -190,6 +190,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6105719356915935425}
+  - component: {fileID: 1111067712}
+  - component: {fileID: 1111067716}
+  - component: {fileID: 1111067715}
+  - component: {fileID: 1111067714}
+  - component: {fileID: 1111067713}
   m_Layer: 0
   m_Name: Ship
   m_TagString: Untagged
@@ -213,6 +218,108 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1111067712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6105719356915935438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 191660a6342eea14b88ab3b30a48a301, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PrecountdownState: {fileID: 1111067716}
+  m_CountdownState: {fileID: 1111067715}
+  m_GameplayState: {fileID: 1111067714}
+  m_EndState: {fileID: 1111067713}
+--- !u!114 &1111067716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6105719356915935438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b27635afe5443643a3e57ad9b919132, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Duration: 2
+  m_Controller: {fileID: 764525116303242149}
+  m_TimerUI: {fileID: 0}
+--- !u!114 &1111067715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6105719356915935438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6e18fdc81751674ca29221a8d5b1bf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_CountdownText: {fileID: 0}
+  m_ElementDuration: 0.8
+  m_TextDisplayDuration: 1
+--- !u!114 &1111067714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6105719356915935438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7037ffd9b6ae02846aee042512774fdb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Controller: {fileID: 764525116303242149}
+  m_HealthMask: {fileID: 0}
+  m_TimerUI: {fileID: 0}
+  m_Speedo: {fileID: 0}
+  m_ShipHealthMax: 12.5
+  m_InitialImmunity: 3
+  m_DifficultyCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.4474886
+      inSlope: 0.0021260406
+      outSlope: 0.0021260406
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.07755768
+    - serializedVersion: 3
+      time: 360
+      value: 1
+      inSlope: 0.0012327327
+      outSlope: 0.0012327327
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.087458715
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &1111067713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6105719356915935438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca784f82f16aad4428873f39d9058b88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ContinueButton: Submit
+  m_GameEndUI: {fileID: 0}
 --- !u!1 &6105719356956213964
 GameObject:
   m_ObjectHideFlags: 0
