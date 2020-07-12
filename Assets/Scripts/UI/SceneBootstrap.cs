@@ -28,6 +28,9 @@ public class SceneBootstrap : MonoBehaviour
     [Header( "Scenes" )]
     [SerializeField] private string m_MainMenuScene;
     [SerializeField] private string m_GameplayScene;
+    [SerializeField] private string m_ControlsScene;
+
+    private bool m_HasShownControls = false;
 
     [Header( "Fading" )]
     [SerializeField] private float m_FadeDuration;
@@ -139,7 +142,22 @@ public class SceneBootstrap : MonoBehaviour
     }
 
     public void LoadGameplay()
-        => LoadScene( m_GameplayScene );
+    {
+        if (m_HasShownControls == false)
+        {
+            LoadControls();
+        }
+        else
+        {
+            LoadScene( m_GameplayScene );
+        }
+    }
+
+    public void LoadControls()
+    {
+        LoadScene( m_ControlsScene );
+        m_HasShownControls = true;
+    }
 
     public void LoadMainMenu()
         => LoadScene( m_MainMenuScene );

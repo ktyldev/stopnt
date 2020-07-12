@@ -166,6 +166,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6607478720592148510}
   - component: {fileID: 6607478720592148509}
+  - component: {fileID: 1224493486}
   m_Layer: 0
   m_Name: Persistent
   m_TagString: Untagged
@@ -202,6 +203,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Fader: {fileID: 6607478720392644629}
   m_FadeCanvas: {fileID: 6607478720013247586}
-  m_MainMenuScene: boot
+  m_MainMenuScene: Boot
   m_GameplayScene: Main
+  m_ControlsScene: Controls
   m_FadeDuration: 0.7
+--- !u!114 &1224493486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6607478720592148508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b006331c58996c84a90c245862aa2c32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_MinWalkingPeriod: 0.6
+  m_MaxWalkingPeriod: 3
+  m_WalkMagnitude: 1
